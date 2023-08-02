@@ -5,6 +5,10 @@ import { RowContainer, RowPosters, RowPoster, RowTitle } from "./Styled";
 
 export default function Row({ isLarge, title, id, fetchUrl }) {
   const [movies, setMovies] = useState([]);
+  //modal이 열린 상태 저장
+  const [modalOpen, setModalOpen] = useState(false);
+  //선택한 영화를 저장
+  const [movieSelected, setMovieSelected] = useState({});
 
   useEffect(() => {
     fetchMovieData();
@@ -17,8 +21,16 @@ export default function Row({ isLarge, title, id, fetchUrl }) {
     setMovies(request.data.results);
   };
 
+  const handleClick = (movie) => {
+    setModalOpen(true);
+    setMovieSelected(movie);
+  };
+
   return (
     <>
+      {modalOpen && (
+        <MovieModal {...movieSelected} setModalOpen={setModalOpen} /> //컴포넌트 가져오기
+      )}
       <RowContainer>
         <RowTitle>{title}</RowTitle>
         <RowPosters>
@@ -30,6 +42,7 @@ export default function Row({ isLarge, title, id, fetchUrl }) {
                 isLarge ? movie.poster_path : movie.backdrop_path
               }`}
               alt={movie.name}
+              onClick={() => handleClick(movie)}
             />
           ))}
         </RowPosters>
