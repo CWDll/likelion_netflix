@@ -35,7 +35,7 @@ export default function MovieModal({
             {release_date ? release_date : first_air_date}
           </ModalDetail>
           <ModalTitle>{title ? title : name}</ModalTitle>
-          <ModalOverview>평점 : {vote_average}</ModalOverview>
+          <ModalOverview>평점 : {vote_average} / 10</ModalOverview>
           <ModalOverview>{overview}</ModalOverview>
         </ModalContent>
       </Modal>
