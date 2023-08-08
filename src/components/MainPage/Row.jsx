@@ -3,12 +3,17 @@ import axios from "../../api/axios";
 import MovieModal from "../MovieModal/MovieModal";
 import { RowContainer, RowPosters, RowPoster, RowTitle } from "./Styled";
 
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+
+import { Navigation } from "swiper/modules";
+
 export default function Row({ isLarge, title, id, fetchUrl }) {
   const [movies, setMovies] = useState([]);
-  //modal이 열린 상태 저장
-  const [modalOpen, setModalOpen] = useState(false);
-  //선택한 영화를 저장
-  const [movieSelected, setMovieSelected] = useState({});
 
   useEffect(() => {
     fetchMovieData();
@@ -21,6 +26,9 @@ export default function Row({ isLarge, title, id, fetchUrl }) {
     setMovies(request.data.results);
   };
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [movieSelected, setMovieSelected] = useState({});
+
   const handleClick = (movie) => {
     setModalOpen(true);
     setMovieSelected(movie);
@@ -29,23 +37,31 @@ export default function Row({ isLarge, title, id, fetchUrl }) {
   return (
     <>
       {modalOpen && (
-        <MovieModal {...movieSelected} setModalOpen={setModalOpen} /> //컴포넌트 가져오기
+        <MovieModal {...movieSelected} setModalOpen={setModalOpen} />
       )}
       <RowContainer>
         <RowTitle>{title}</RowTitle>
-        <RowPosters>
-          {movies.map((movie) => (
-            <RowPoster
-              key={movie.id}
-              isLarge={isLarge ? "true" : "false"}
-              src={`https://image.tmdb.org/t/p/original/${
-                isLarge ? movie.poster_path : movie.backdrop_path
-              }`}
-              alt={movie.name}
-              onClick={() => handleClick(movie)}
-            />
-          ))}
-        </RowPosters>
+        <Swiper
+          navigation={true}
+          modules={[Navigation]}
+          className="MySwiper"
+          slidesPerView={6}
+        >
+          <RowPosters>
+            {movies.map((movie) => (
+              <SwiperSlide key={movie.id}>
+                <RowPoster
+                  isLarge={isLarge ? "true" : "false"}
+                  src={`https://image.tmdb.org/t/p/original/${
+                    isLarge ? movie.poster_path : movie.backdrop_path
+                  }`}
+                  alt={movie.name}
+                  onClick={() => handleClick(movie)}
+                />
+              </SwiperSlide>
+            ))}
+          </RowPosters>
+        </Swiper>
       </RowContainer>
     </>
   );

@@ -1,15 +1,15 @@
-import MainPage from './pages/MainPage/MainPage'
-import { Layout } from './components/Layout/Layout'
-import { Route, Routes } from "react-router-dom"
+import MainPage from "./pages/MainPage/MainPage";
+import { Layout } from "./components/Layout/Layout";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <Routes>
-      <Route ute path="/" element={<Layout />}>
+      <Route path="/" element={<Layout />}>
         <Route index element={<MainPage />} />
       </Route>
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;
