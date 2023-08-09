@@ -143,7 +143,7 @@ export const RowPosters = styled.div`
 export const RowPoster = styled.img`
   object-fit: contain;
   width: 100%;
-  max-height: ${(props) => (props.isLarge == "true" ? "320px" : "144px")};
+  max-height: ${(props) => (props.islarge == "true" ? "320px" : "144px")};
   margin: 0.5%;
   transition: transform 450ms;
   border-radius: 4px;
