@@ -21,9 +21,14 @@ export default function MovieModal({
   vote_average,
   setModalOpen,
 }) {
+  // 이벤트가 모달 내부에서 propogate되지 않도록 막기 위한 함수
+  const stopPropagation = (e) => {
+    e.stopPropagation();
+  };
+
   return (
     <ModalContainer onClick={() => setModalOpen(false)}>
-      <Modal>
+      <Modal onClick={stopPropagation}>
         <ModalCloseBtn onClick={() => setModalOpen(false)}>X</ModalCloseBtn>
         <ModalPosterImg
           src={`https://image.tmdb.org/t/p/original/${backdrop_path}`}
@@ -35,7 +40,7 @@ export default function MovieModal({
             {release_date ? release_date : first_air_date}
           </ModalDetail>
           <ModalTitle>{title ? title : name}</ModalTitle>
-          <ModalOverview>평점 : {vote_average}</ModalOverview>
+          <ModalOverview>평점: {vote_average}</ModalOverview>
           <ModalOverview>{overview}</ModalOverview>
         </ModalContent>
       </Modal>

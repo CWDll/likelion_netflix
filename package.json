@@ -2,7 +2,7 @@
   "name": "fe-netflix-clone-coding",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://github.com/CWDll/likelion_netflix.git",
+  "homepage": "https://CWDll.github.io/likelion_netflix",
   "type": "module",
   "scripts": {
     "dev": "vite",
